@@ -2,4 +2,4 @@
 
 ###
 
-GET {{host}}/hello
+GET {{host}}/api/hello

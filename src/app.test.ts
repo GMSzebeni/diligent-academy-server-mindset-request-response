@@ -7,10 +7,10 @@ beforeEach(() => {
   app = createApp({logger: false});
 })
 
-it('respond to the GET /hello', async () => {
+it('respond to the GET /api/hello', async () => {
   const response = await app!
     .inject()
-    .get('/hello')
+    .get('/api/hello')
   const body = JSON.parse(response.body)
 
   expect(response.statusCode).toStrictEqual(200);

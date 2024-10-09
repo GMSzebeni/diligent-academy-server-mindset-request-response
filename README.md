@@ -16,7 +16,7 @@
 ### Test the server
 
 - Issue an `npm run dev` command.
-- Initiate a `GET http://localhost:4400/hello` (e.g. with the REST Client from the `requests.http`) file.
+- Initiate a `GET http://localhost:4400/api/hello` (e.g. with the REST Client from the `requests.http`) file.
 
 ### Test the test framework
 
