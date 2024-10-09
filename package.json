@@ -6,7 +6,7 @@
     "clean": "rimraf ./build",
     "prebuild": "npm run clean",
     "build": "tsc --project tsconfig.json ",
-    "start": "node build/src/server.js",
+    "start": "node build/server.js",
     "test": "jest",
     "dev": "nodemon --exec ts-node src/server.ts"
   },
