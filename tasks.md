@@ -116,6 +116,7 @@ Deep dive:
 - The body contains the kind of a coffee or a tea. It is defined with an object, only one property: `kind` which is a custom string. `{kind: <kind of the main ingredient>}`.
 - The kind should be added as a prefix for the drink.
 - Example: `{kind: 'English Breakfast'}` request body in JSON format is sent to the `POST /api/beverages/tea` endpoint, the response should be `{drink: 'English Breakfast tea'}`. 
+- To test this task issue: `npm test -- task6`
 
 ## Task 7: Take care of the dietary
 
