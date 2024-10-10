@@ -5,7 +5,7 @@ import each from "jest-each";
 let app: FastifyInstance | undefined;
 
 beforeEach(() => {
-  app = createApp({ logger: false });
+  app = createApp({ logger: true });
 })
 
 describe('Task 7', () => {
@@ -21,7 +21,8 @@ describe('Task 7', () => {
         ['chai', 'vegan', 'oat-milk'],
       ]
     ).it('should change milk in %s when %s given to %s', async (drink, dietary, expectedMilk) => {
-      const path = `/api/beverages/${drink}`;
+      const querystring = new URLSearchParams({milk: 'yes'})
+      const path = `/api/beverages/${drink}?${querystring}`;
       const headers = { 'CodeCool-Beverages-Dietary': dietary }
       const expected = { drink, with: [expectedMilk] };
 
@@ -51,7 +52,7 @@ describe('Task 7', () => {
       const querystring = new URLSearchParams({sugar: 'yes'}) 
       const path = `/api/beverages/${drink}?${querystring}`;
       const headers = { 'CodeCool-Beverages-Dietary': dietary }
-      const expected = { drink, with: [] };
+      const expected = { drink, with: ['sugar'] };
 
       const response = await app!
         .inject()

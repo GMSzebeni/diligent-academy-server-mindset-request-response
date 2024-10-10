@@ -19,7 +19,7 @@ describe('Task 6', () => {
   ).it('should append the to %s the kind %s', async (drink, kind) => {
     const path = `/api/beverages/${drink}`;
     const requestBody = { kind: kind } 
-    const expected = { drink: `${kind} ${drink}` };
+    const expected = { drink: `${kind} ${drink}`, with: [] };
     
     const response = await app!
       .inject()

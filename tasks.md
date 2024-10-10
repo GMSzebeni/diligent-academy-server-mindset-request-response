@@ -125,6 +125,10 @@ Deep dive:
 - If the header's value is `vegan` and a `milk` was given in the query string replace the milk with `oat-milk`.
 - To test this task issue: `npm test -- task7`
 
+- Hint: Header names are case insensitive, Fastify converts it to lowercase: `codecool-beverages-dietary`
+- Hint: When given a header to the Rest Client no quotations marks are needed neither the header name nor the value.
+`CodeCool-Beverages-Dietary: vegan`
+
 ## Task 8: Responding with proper status code
 
 - The `POST /api/beverages/<drink>` should be respond from now with a `201 Created` status code instead of the `200 OK`.

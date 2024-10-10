@@ -18,15 +18,12 @@ describe('Task 8', () => {
     ]
   ).it('should respond to %s with status code %s', async (drink, expectedStatus) => {
     const path = `/api/beverages/${drink}`;
-    const expected = { drink };
     
     const response = await app!
       .inject()
       .post(path)
-    const responseBody = JSON.parse(response.body)
 
     expect(response.statusCode).toStrictEqual(expectedStatus);
-    expect(responseBody).toStrictEqual(expected)
   })
 })
 
