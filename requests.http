@@ -15,3 +15,12 @@ POST {{host}}/api/beverages/coffee
 ###
 
 POST {{host}}/api/beverages/tea?sugar=yes&milk=yes
+
+###
+
+POST {{host}}/api/beverages/tea?sugar=no&milk=yes
+Content-Type: application/json
+
+{
+    "kind": "English Breakfast"
+}
