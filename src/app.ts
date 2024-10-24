@@ -12,12 +12,19 @@ export default function createApp(options = {}) {
   })
 
   type PostBeverageRouteType = {
+    Querystring: { milk?: "yes" | "no", sugar?: "yes" | "no" }
     Params: { beverage: "coffee" | "tea" | "chai" };
   }
 
   app.post<PostBeverageRouteType>('/api/beverages/:beverage', (request, reply) => {
     const { beverage } = request.params;
-    reply.code(200).send({ drink: beverage });
+    const { milk, sugar } = request.query;
+
+    const condiments = [];
+    if(milk === "yes") condiments.push("milk");
+    if (sugar === "yes") condiments.push("sugar");
+
+    reply.code(200).send({ drink: beverage, with: condiments });
   })
 
   return app;
