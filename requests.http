@@ -24,3 +24,12 @@ Content-Type: application/json
 {
     "kind": "English Breakfast"
 }
+
+###
+POST {{host}}/api/beverages/tea?sugar=no&milk=yes
+Content-Type: application/json
+CodeCool-Beverages-Dietary: lactose-intolerance
+
+{
+    "kind": "English Breakfast"
+}
