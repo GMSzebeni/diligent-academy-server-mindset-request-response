@@ -21,9 +21,8 @@ export default function createApp(options = {}) {
   app.post<PostBeverageRouteType>('/api/beverages/:beverage', (request, reply) => {
     const { beverage } = request.params;
     const { milk, sugar } = request.query;
-    const { kind } = request.body;
+    //const { kind } = request.body;
     const diet = request.headers['codecool-beverages-dietary'];
-    console.log(diet);
 
     const condiments = [];
     if(milk === "yes") {
@@ -37,7 +36,13 @@ export default function createApp(options = {}) {
     }
     if (sugar === "yes") condiments.push("sugar");
 
-    reply.code(200).send({ drink: kind + " " + beverage, with: condiments });
+    const replyMessage = { drink: /*kind + " " + */beverage, with: condiments }
+    
+    if (beverage === "coffee") {
+      reply.code(418).send(replyMessage);
+    } else {
+      reply.code(201).send(replyMessage);
+    }
   })
 
   return app;

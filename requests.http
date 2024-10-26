@@ -33,3 +33,7 @@ CodeCool-Beverages-Dietary: lactose-intolerance
 {
     "kind": "English Breakfast"
 }
+
+###
+POST {{host}}/api/beverages/coffee?sugar=no&milk=yes
+CodeCool-Beverages-Dietary: lactose-intolerance
