@@ -20,6 +20,9 @@ export default function createApp(options = {}) {
 
   app.post<PostBeverageRouteType>('/api/beverages/:beverage', (request, reply) => {
     const { beverage } = request.params;
+    if (!beverage || beverage !== "coffee" && beverage !== "tea" && beverage !== "chai") {
+      reply.code(400).send({reason: 'bad drink'});
+    }
     const { milk, sugar } = request.query;
     //const { kind } = request.body;
     const diet = request.headers['codecool-beverages-dietary'];
