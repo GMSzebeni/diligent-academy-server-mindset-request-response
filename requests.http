@@ -36,4 +36,17 @@ CodeCool-Beverages-Dietary: lactose-intolerance
 
 ###
 POST {{host}}/api/beverages/coffee?sugar=no&milk=yes
+Content-Type: application/json
+CodeCool-Beverages-Dietary: vegan
+
+{
+    "kind": "Omnia"
+}
+
+###
+POST {{host}}/api/beverages/coffee?sugar=no&milk=yes
+Content-Type: application/xml
 CodeCool-Beverages-Dietary: lactose-intolerance
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<kind>Omnia</kind>
