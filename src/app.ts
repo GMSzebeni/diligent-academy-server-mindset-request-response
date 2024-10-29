@@ -40,6 +40,26 @@ export default function createApp(options = {}) {
           type: "string"
         }
       }
+    },
+    response: {
+      201: {
+        description: "Your drink is ready",
+        content: {
+          "application/json": {
+            schema: {
+              drink: {
+                type: "string"
+              },
+              with: {
+                type: "array",
+                items: {
+                  type: "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
