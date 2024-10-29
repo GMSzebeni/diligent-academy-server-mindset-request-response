@@ -1,7 +1,8 @@
 import fastify from 'fastify';
+import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
 
 export default function createApp(options = {}) {
-  const app = fastify(options)
+  const app = fastify(options).withTypeProvider<JsonSchemaToTsProvider>();
 
   app.get('/api/hello', (request, reply) => {
     reply.send({hello: "World!"})
@@ -11,74 +12,81 @@ export default function createApp(options = {}) {
     reply.code(200).send({ message: "Good Bye Visitor!" });
   })
 
-  const schema = {
-    params: {
-      type: "object",
-      properties: {
-        beverage: { enum: ["coffee", "tea", "chai"] }
-      },
-      required: ["beverage"],
-      additionalProperties: false
+  const paramsSchema = {
+    type: "object",
+    properties: {
+      beverage: { enum: ["coffee", "tea", "chai"] }
     },
-    body: {
-      content: {
-        'application/json': {
-          schema: {
-            type: "object"
-          }
-        }
-      },
-      required: ["kind"]
-    },
-    queryString: {
-      type: "object",
-      properties: {
-        milk: {
-          type: "string"
-        },
-        sugar: {
-          type: "string"
-        }
+    required: ["beverage"],
+    additionalProperties: false
+  } as const;
+
+  const bodySchema = {
+    type: "object",
+    properties: {
+      kind: {
+        type: "string"
       }
     },
-    response: {
-      201: {
-        description: "Your drink is ready",
-        content: {
-          "application/json": {
-            schema: {
-              drink: {
+    required: [],
+    additionalProperties: false  
+  } as const;
+
+  const queryStringSchema = {
+    type: "object",
+    properties: {
+      milk: {
+        type: "string",
+        enum: ["yes", "no"]
+      },
+      sugar: {
+        type: "string",
+        enum: ["yes", "no"]
+      }
+    },
+    additionalProperties: false
+  } as const;
+
+  const responseSchema = {
+    201: {
+      description: "Your drink is ready",
+      content: {
+        "application/json": {
+          schema: {
+            drink: {
+              type: "string"
+            },
+            with: {
+              type: "array",
+              items: {
                 type: "string"
-              },
-              with: {
-                type: "array",
-                items: {
-                  type: "string"
-                }
               }
             }
           }
         }
       }
     }
-  }
+  } as const;
 
-  type PostBeverageRouteType = {
+  /* type PostBeverageRouteType = {
     Querystring: { milk?: "yes" | "no", sugar?: "yes" | "no" };
     Params: { beverage: "coffee" | "tea" | "chai" };
-    Body: { kind: "string" };
+    Body: { kind?: "string" };
     Headers: { 'CodeCool-Beverages-Dietary'?: 'lactose-intolerance' | 'vegan' };
-  }
+  }; */
 
-  app.post<PostBeverageRouteType>(
-    '/api/beverages/:beverage',
-    {
-      schema: schema
-    },
+  app.post(
+    '/api/beverages/:beverage', { 
+      schema: {
+        params: paramsSchema,
+        body: bodySchema,
+        querystring: queryStringSchema,
+        response: responseSchema
+    }}, 
     (request, reply) => {
       const { beverage } = request.params;
       const { milk, sugar } = request.query;
-      const { kind } = request.body;
+      const { kind }  = request.body;
       const diet = request.headers['codecool-beverages-dietary'];
 
       const condiments = [];
